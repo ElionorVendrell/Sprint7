@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { services } from "../data/services";
+import services from "../data/services.json";
 
 function App() {
   const [checkedState, setCheckedState] = useState(
@@ -52,7 +52,7 @@ function App() {
         })}
       </div>
       <br></br>
-      <div className='totalPrice'>Total {total}</div>
+      <div className='totalPrice'>Total {total} €</div>
     </div>
   );
 }

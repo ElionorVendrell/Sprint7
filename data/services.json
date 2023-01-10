@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Una pàgina web",
+    "price": 500
+  },
+  {
+    "name": "Una consultoria SEO",
+    "price": 300
+  },
+  {
+    "name": "Una campanya de Google Ads",
+    "price": 200
+  }
+]
