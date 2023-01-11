@@ -1,5 +1,7 @@
 import { useState } from "react";
 import services from "../data/services.json";
+import { Quantity } from "./Components/Quantity";
+import { Checkbox } from "./Components/Checkbox";
 
 function App() {
   const [checkedState, setCheckedState] = useState(
@@ -24,6 +26,12 @@ function App() {
       0
     );
 
+    /*  const showContent = (position) => {
+      const extra = services.filter((service) => service.extraServices);
+      const show = extra[position].extraServices;
+      console.log(show);
+    };
+    showContent(position); */
     setTotal(totalPrice);
   };
 
@@ -31,22 +39,17 @@ function App() {
     <div className='App'>
       <h2>Què vols fer?</h2>
       <div className='services-list'>
-        {services.map(({ name, price }, index) => {
+        {services.map(({ text, price, id }, index) => {
           return (
             <div key={index}>
-              <input
-                type='checkbox'
-                id={`id-checkbox-${index}`}
-                name={name}
+              <Checkbox
+                id={index}
+                text={text}
                 price={price}
-                value={name}
-                checked={checkedState[index]}
-                onChange={() => handleOnChange(index)}
+                value={id}
+                onCheck={() => handleOnChange(index)}
               />
-
-              <label htmlFor={`custom-checkbox-${index}`}>
-                {name} ({price}€)
-              </label>
+              {checkedState[0] && index === 0 && <Quantity />}
             </div>
           );
         })}
@@ -58,52 +61,3 @@ function App() {
 }
 
 export default App;
-
-/* 
-function App() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleOnChange = () => {
-    setIsChecked(!isChecked);
-    console.log(isChecked);
-  };
-
-  return (
-    <div className='App'>
-      Què vols fer?
-      <div className='web'>
-        <input
-          type='checkbox'
-          id='web'
-          name='web'
-          value='web'
-          checked={isChecked}
-          onChange={handleOnChange}
-        />
-        Una pàgina web (500€)
-      </div>
-      <div className='seo'>
-        <input
-          type='checkbox'
-          id='seo'
-          name='seo'
-          value='seo'
-          checked={isChecked}
-          onChange={handleOnChange}
-        />
-        Una consultoria SEO (300€)
-      </div>
-      <div className='ads'>
-        <input
-          type='checkbox'
-          id='ads'
-          name='ads'
-          value='ads'
-          checked={isChecked}
-          onChange={handleOnChange}
-        />
-        Una campanya de Google Ads (200€)
-      </div>
-    </div>
-  );
-} */

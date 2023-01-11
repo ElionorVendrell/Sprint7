@@ -1,14 +1,19 @@
 [
-  {
-    "name": "Una pàgina web",
-    "price": 500
+  {   
+    "id": "web",
+    "text": "Una pàgina web",
+    "price": 500,
+    "extraServices":["Número de pàgines", "Número d'idiomes"]
   },
   {
-    "name": "Una consultoria SEO",
-    "price": 300
+    "id": "seo",
+    "text": "Una consultoria SEO",
+    "price": 300,
+    "extraServices":[]
   },
   {
-    "name": "Una campanya de Google Ads",
+    "id": "ads",
+    "text": "Una campanya de Google Ads",
     "price": 200
   }
 ]
