@@ -8,12 +8,11 @@
   {
     "id": "seo",
     "text": "Una consultoria SEO",
-    "price": 300,
-    "extraServices":[]
+    "price": 300
   },
   {
     "id": "ads",
     "text": "Una campanya de Google Ads",
     "price": 200
-  }
+    }
 ]

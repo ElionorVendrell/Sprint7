@@ -7,6 +7,13 @@ export const Quantity = () => {
   const [qtyIdiom, setQtyIdiom] = useState(0);
   console.log("qtyIdiom", qtyIdiom);
 
+  /*
+  CALCULAR EL PREU TOTAL AMB ELS EXTRES:
+
+S'ha de sumar el següent amb el preu que teniem a la pàgina d'inici: 
+preu total = qtyPag * qtyIdiom * 30; 
+  */
+
   return (
     <form>
       <br></br>

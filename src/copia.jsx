@@ -9,20 +9,23 @@ function App() {
   );
   const [total, setTotal] = useState(0);
 
-  const extra = [];
   const showContent = () => {
-    const result = services.filter((service, index) => {
-      if (service.extraServices) {
-        extra.push(index);
-        console.log("extra dins funció:", extra);
+    const extra = services.filter((services, index) => {
+      if (services.extraServices) {
+        const newOption = {
+          id: index,
+          extraServices,
+        };
+        return newOption;
       }
     });
-    return result;
+    console.log("🚀 ~ file: App.jsx:22 ~ extra ~ extra", extra);
+    //const show = extra[position].extraServices;
+    return extra;
   };
-  showContent();
 
-  /* const hola = showContent();
-  console.log("hola:", hola); */
+  const content = showContent();
+  console.log("🚀 ~ file: App.jsx:29 ~ App ~ content", content);
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -40,8 +43,8 @@ function App() {
       },
       0
     );
-    /* showContent();
-    console.log("extra fora funció:", extra); */
+
+    showContent();
     setTotal(totalPrice);
   };
 
@@ -56,14 +59,12 @@ function App() {
                 id={id}
                 text={text}
                 price={price}
+                // value={id}
                 onCheck={() => handleOnChange(index)}
               />
-              {extra.includes(index) && checkedState[index] && <Quantity />}
-              {/* {extra === index && <Quantity />} */}
-              {/* {hola === index && <Quantity />} */}
-              {/* {showContent()} */}
-              {/* {show.id === index && <Quantity/>} */}
-              {/* {checkedState[0] && index === 0 && <Quantity />} */}
+              {content.find(
+                ({ id, extraServices }) => id === index && <Quantity />
+              )}
             </div>
           );
         })}
