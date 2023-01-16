@@ -3,7 +3,9 @@
     "id": "web",
     "text": "Una pàgina web",
     "price": 500,
-    "extraServices":["Número de pàgines", "Número d'idiomes"]
+    "extraServices":[
+      {"text":"Número de pàgines","id": 0},
+      {"text":"Número d'idiomes", "id": 1}]
   },
   {
     "id": "seo",

@@ -1,26 +1,30 @@
 import { React, useState } from "react";
 
-/* import services from "../data/services.json"; */
-
 //Hem creat el component Quantity, fem el constructor amb les props que necessita
 //En el return mostrem com s'haurà d'imprimir
-export const Quantity = ({ text, index }) => {
+export const input = [[], []];
+export const Quantity = ({ id, text, index }) => {
   // Fem el useState per controlar quan canvia el número de pàgines i d'idiomes en el input
-  // dels extraServices. L'inicialitzem en 0. Ho fem amb un sol useState, ja que servirà per
-  //tot allò que s'imprimeix.
-  const [quantity, setQuantity] = useState(0);
+  // dels extraServices. L'inicialitzem en 0.
+  const [quantity, setQuantity] = useState(1);
   console.log("console quantity", quantity);
 
   return (
     <div key={index}>
-      <div id={index} text={text}>
+      <div id={id} text={text}>
         <br></br>
         <label>{text}</label>
         <br></br>
         <input
           type='number'
           min='0'
-          onChange={(event) => setQuantity(event.target.value)}
+          onChange={(event) => {
+            setQuantity(event.target.value);
+            const value = quantity * event.target.value;
+            input[id] = event.target.value;
+            console.log(input);
+            console.log("id", id);
+          }}
         />
       </div>
       <br></br>
