@@ -1,6 +1,6 @@
 import { useState } from "react";
 import services from "../data/services.json";
-import { Quantity, input } from "./Components/Quantity";
+import { Quantity } from "./Components/Quantity";
 import { Checkbox } from "./Components/Checkbox";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
   );
   //2. useState del preu total
   const [total, setTotal] = useState(0);
+  
 
   // Funció per fer  canvis en el State del checkbox
   const handleOnChange = (position) => {
@@ -54,7 +55,7 @@ function App() {
               )
             );
           }
-          // Retorn de la variable show 
+          // Retorn de la variable show
           return <div key={index}>{show}</div>;
         })}
       </div>

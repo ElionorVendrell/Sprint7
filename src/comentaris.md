@@ -1,3 +1,5 @@
+#APP
+
 ```js
 import { useState } from "react";
 import services from "../data/services.json";
@@ -61,7 +63,7 @@ function App() {
           //que faci un push de cada un dels elements. El push que fa és el component Quantity, per tant, ens mostra dos vegades aquest
           //component, cada un per cada volta que fa. El valor el passem amb la e i amb index, que seràn les props del component Quantity.
           //Per cada volta tindran un valor diferent.
-        
+
           if (extraServices && checkedState[index]) {
             extraServices.forEach((e) =>
               show.push(
