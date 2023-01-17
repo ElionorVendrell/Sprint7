@@ -1,4 +1,5 @@
 import { React } from "react";
+import { Button } from "../../styled";
 
 export const Quantity = ({
   id,
@@ -23,9 +24,9 @@ export const Quantity = ({
         <br></br>
         <label>{text}</label>
         <br></br>
-        <button onClick={() => backButton(id)}>-</button>
+        <Button onClick={() => backButton(id)}>-</Button>
         <input type='number' min='1' value={valueInput(id)} readOnly />
-        <button onClick={() => nextButton(id)}>+</button>
+        <Button onClick={() => nextButton(id)}>+</Button>
       </div>
       <br></br>
     </div>

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import services from "../data/services.json";
 import { Quantity } from "./Components/Quantity";
 import { Checkbox } from "./Components/Checkbox";
+import { Border } from "../styled";
+import "../app.css";
 
 function App() {
   //1. useState del checkbox
@@ -93,16 +95,18 @@ function App() {
           if (extraServices && checkedState[index]) {
             extraServices.forEach((e) =>
               show.push(
-                <Quantity
-                  key={e.id}
-                  id={e.id}
-                  text={e.text}
-                  index={index}
-                  nextButton={nextButton}
-                  backButton={backButton}
-                  qtyLang={qtyLang}
-                  qtyPages={qtyPages}
-                />
+                <Border>
+                  <Quantity
+                    key={e.id}
+                    id={e.id}
+                    text={e.text}
+                    index={index}
+                    nextButton={nextButton}
+                    backButton={backButton}
+                    qtyLang={qtyLang}
+                    qtyPages={qtyPages}
+                  />
+                </Border>
               )
             );
           }
