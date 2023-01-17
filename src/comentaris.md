@@ -7,14 +7,49 @@ import { Quantity, input } from "./Components/Quantity";
 import { Checkbox } from "./Components/Checkbox";
 
 function App() {
+
+  ### USESTATE
   //Fem un useState del checkbox per controlar quan està actiu i quan no
   //L'iniciem en false, que serà l'estat de quan no està seleccionat
-
   const [checkedState, setCheckedState] = useState(
     new Array(services.length).fill(false)
   );
   // Fem un useState per calcular el preu total. L'inicialitzem en 0
   const [total, setTotal] = useState(0);
+
+  // useState per quant de pàgines
+  const [qtyPages, setQtyPages] = useState(1);
+  // useState per quant d'idiomes
+  const [qtyLang, setQtyLang] = useState(1);
+
+  //4. useState del Preu que es mostra quan el checkbox està actiu
+  const [checkboxPrice, setCheckboxPrice] = useState(0);
+
+  // Funció per restar un número al botó dels inputs
+  const backButton = (id) => {
+    if (id === 0) {
+      setQtyPages(qtyPages - 1);
+    }
+    if (qtyPages <= 1) {
+      setQtyPages(1);
+    }
+    if (id === 1) {
+      setQtyLang(qtyLang - 1);
+    }
+    if (qtyLang <= 1) {
+      setQtyLang(1);
+    }
+  };
+
+  // Funció per sumar un número al botó dels inputs
+
+  const nextButton = (id) => {
+    if (id === 0) {
+      setQtyPages(qtyPages + 1);
+    } else {
+      setQtyLang(qtyLang + 1);
+    }
+  };
 
   // Funció per fer  canvis en el State del checkbox, el passa de false a true o viceversa.
   //li passem una propietat (position), que és el index que li hem enviat més abaix en el map de services.
@@ -38,8 +73,24 @@ function App() {
       },
       0
     );
-    setTotal(totalPrice);
+
+    //mostrem només el preu dels checkbox seleccionats
+    setCheckboxPrice(checkPrice);
   };
+
+  //Calculem el total sumant els useStates i el passem per el total
+  const calculateTotal = () => {
+    const totalExtra = qtyLang * qtyPages * 30;
+    const total = totalExtra + checkboxPrice;
+
+    setTotal(total);
+  };
+
+  //useEffect perquè s'executi la funció calculateTotal sempre que hi hagi un canvi al checkedState, al qtyLang o al qtyPages
+  useEffect(() => {
+    calculateTotal();
+  }, [checkedState, qtyLang, qtyPages]);
+
   //Allò que imprimim per pantalla, passem la resta de components que necessitem
   // component Checkbox, component Quantity --> els hi passem les props aquí (especificades en el constructor del component)
   return (
@@ -67,7 +118,16 @@ function App() {
           if (extraServices && checkedState[index]) {
             extraServices.forEach((e) =>
               show.push(
-                <Quantity key={e.id} id={e.id} text={e.text} index={index} />
+                <Quantity
+                  key={e.id}
+                  id={e.id}
+                  text={e.text}
+                  index={index}
+                  nextButton={nextButton}
+                  backButton={backButton}
+                  qtyLang={qtyLang}
+                  qtyPages={qtyPages}
+                />
               )
             );
           }
@@ -82,4 +142,42 @@ function App() {
 }
 
 export default App;
+```
+
+#QUANTITY COMPONENT
+
+```js
+import { React } from "react";
+
+export const Quantity = ({
+  id,
+  text,
+  index,
+  nextButton,
+  backButton,
+  qtyLang,
+  qtyPages,
+}) => {
+  const valueInput = (id) => {
+    if (id === 0) {
+      return qtyPages;
+    }
+    if (id === 1) {
+      return qtyLang;
+    }
+  };
+  return (
+    <div key={index}>
+      <div id={id} text={text}>
+        <br></br>
+        <label>{text}</label>
+        <br></br>
+        <button onClick={() => backButton(id)}>-</button>
+        <input type='number' min='1' value={valueInput(id)} readOnly />
+        <button onClick={() => nextButton(id)}>+</button>
+      </div>
+      <br></br>
+    </div>
+  );
+};
 ```

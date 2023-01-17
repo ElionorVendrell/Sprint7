@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import services from "../data/services.json";
 import { Quantity } from "./Components/Quantity";
 import { Checkbox } from "./Components/Checkbox";
@@ -10,7 +10,37 @@ function App() {
   );
   //2. useState del preu total
   const [total, setTotal] = useState(0);
-  
+
+  //3. useState per quant de pàgines i idiomes
+  const [qtyPages, setQtyPages] = useState(1);
+  const [qtyLang, setQtyLang] = useState(1);
+
+  //4. useState del Preu que es mostra quan el checkbox està actiu
+  const [checkboxPrice, setCheckboxPrice] = useState(0);
+
+  // Funció per restar un número al botó dels inputs
+  const backButton = (id) => {
+    if (id === 0) {
+      setQtyPages(qtyPages - 1);
+    }
+    if (qtyPages <= 1) {
+      setQtyPages(1);
+    }
+    if (id === 1) {
+      setQtyLang(qtyLang - 1);
+    }
+    if (qtyLang <= 1) {
+      setQtyLang(1);
+    }
+  };
+
+  const nextButton = (id) => {
+    if (id === 0) {
+      setQtyPages(qtyPages + 1);
+    } else {
+      setQtyLang(qtyLang + 1);
+    }
+  };
 
   // Funció per fer  canvis en el State del checkbox
   const handleOnChange = (position) => {
@@ -18,10 +48,9 @@ function App() {
       index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
-    console.log("position", position);
 
-    // Funció per calcular el preu total
-    const totalPrice = updatedCheckedState.reduce(
+    // Funció per calcular el preu dels checkbox seleccionats
+    const checkPrice = updatedCheckedState.reduce(
       (sum, currentState, index) => {
         if (currentState === true) {
           return sum + services[index].price;
@@ -30,8 +59,21 @@ function App() {
       },
       0
     );
-    setTotal(totalPrice);
+    setCheckboxPrice(checkPrice);
   };
+
+  // Funció per calcular el preu total, suma dels checkbox + quantitats
+  const calculateTotal = () => {
+    const totalExtra = qtyLang * qtyPages * 30;
+    const total = totalExtra + checkboxPrice;
+
+    setTotal(total);
+  };
+
+  //Realitzar la funció calculateTotal quan hi hagi canvis a algun dels states indicats
+  useEffect(() => {
+    calculateTotal();
+  }, [checkedState, qtyLang, qtyPages]);
 
   //Allò que imprimim per pantalla
   return (
@@ -51,7 +93,16 @@ function App() {
           if (extraServices && checkedState[index]) {
             extraServices.forEach((e) =>
               show.push(
-                <Quantity key={e.id} id={e.id} text={e.text} index={index} />
+                <Quantity
+                  key={e.id}
+                  id={e.id}
+                  text={e.text}
+                  index={index}
+                  nextButton={nextButton}
+                  backButton={backButton}
+                  qtyLang={qtyLang}
+                  qtyPages={qtyPages}
+                />
               )
             );
           }

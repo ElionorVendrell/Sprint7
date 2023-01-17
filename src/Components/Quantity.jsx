@@ -1,43 +1,33 @@
-import { React, useState } from "react";
+import { React } from "react";
 
-//Hem creat el component Quantity, fem el constructor amb les props que necessita
-//En el return mostrem com s'haurà d'imprimir
-export const input = [1, 1];
-export const Quantity = ({ id, text, index }) => {
-  // Fem el useState per controlar quan canvia el número de pàgines i d'idiomes en el input
-  // dels extraServices. L'inicialitzem en 0.
-  const [quantity, setQuantity] = useState(1);
-  console.log("console quantity", quantity);
-
-  const multiplicacio = input[0] * input[1] * 30;
-  console.log(multiplicacio);
-
+export const Quantity = ({
+  id,
+  text,
+  index,
+  nextButton,
+  backButton,
+  qtyLang,
+  qtyPages,
+}) => {
+  const valueInput = (id) => {
+    if (id === 0) {
+      return qtyPages;
+    }
+    if (id === 1) {
+      return qtyLang;
+    }
+  };
   return (
     <div key={index}>
       <div id={id} text={text}>
         <br></br>
         <label>{text}</label>
         <br></br>
-        <input
-          type='number'
-          min='0'
-          onChange={(event) => {
-            setQuantity(event.target.value);
-            input[id] = event.target.value;
-            console.log(input);
-            console.log("id", id);
-          }}
-        />
+        <button onClick={() => backButton(id)}>-</button>
+        <input type='number' min='1' value={valueInput(id)} readOnly />
+        <button onClick={() => nextButton(id)}>+</button>
       </div>
       <br></br>
     </div>
   );
 };
-
-/*
-  2.CALCULAR EL PREU TOTAL AMB ELS EXTRES:
-
-S'ha de sumar el següent amb el preu que teniem a la pàgina d'inici: 
-preu total = qtyPag * qtyLang * 30; 
- 
-*/
