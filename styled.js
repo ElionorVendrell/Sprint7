@@ -17,8 +17,20 @@ export const Border = styled.div`
   padding: 2vh;
   border: 2px solid #242424;
   border-radius: 10px;
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const Start = styled.button`
+  font-size: 16px;
+  font-weight: bold;
+  background-color: orange;
+  color: rgba(255, 255, 255, 0.87);
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  height: 30px;
+  weight: 100%;
 `;

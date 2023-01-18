@@ -4,6 +4,7 @@ import { Quantity } from "./Components/Quantity";
 import { Checkbox } from "./Components/Checkbox";
 import { Border } from "../styled";
 import "../app.css";
+import { Welcome } from "./Components/Welcome";
 
 function App() {
   //1. useState del checkbox
@@ -77,8 +78,18 @@ function App() {
     calculateTotal();
   }, [checkedState, qtyLang, qtyPages]);
 
-  //Allò que imprimim per pantalla
-  return (
+  // useState de Welcome
+  const [welcome, setWelcome] = useState(true);
+  console.log(welcome);
+
+  const start = () => {
+    setWelcome(false);
+  };
+
+  return welcome === true ? (
+    <Welcome start={start} />
+  ) : (
+    //Allò que imprimim per pantalla
     <div className='App'>
       <h2>Què vols fer?</h2>
       <div className='services-list'>

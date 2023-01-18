@@ -18,3 +18,16 @@
 
 h2{ color: orange;
 }
+
+#App{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+#textExras{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -22,7 +22,7 @@ export const Quantity = ({
     <div key={index}>
       <div id={id} text={text}>
         <br></br>
-        <label>{text}</label>
+        <label className="textExtras">{text}</label>
         <br></br>
         <Button onClick={() => backButton(id)}>-</Button>
         <input type='number' min='1' value={valueInput(id)} readOnly />
