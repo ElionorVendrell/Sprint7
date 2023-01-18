@@ -25,7 +25,7 @@ export const Quantity = ({
         <label className="textExtras">{text}</label>
         <br></br>
         <Button onClick={() => backButton(id)}>-</Button>
-        <input type='number' min='1' value={valueInput(id)} readOnly />
+        <input className ="inputForm" type='number' min='1' value={valueInput(id)} readOnly />
         <Button onClick={() => nextButton(id)}>+</Button>
       </div>
       <br></br>

@@ -68,9 +68,9 @@ function App() {
   // Funció per calcular el preu total, suma dels checkbox + quantitats
   const calculateTotal = () => {
     const totalExtra = qtyLang * qtyPages * 30;
-    const total = totalExtra + checkboxPrice;
+    const totalN = totalExtra + checkboxPrice;
 
-    setTotal(total);
+    setTotal(totalN);
   };
 
   //Realitzar la funció calculateTotal quan hi hagi canvis a algun dels states indicats
@@ -78,14 +78,25 @@ function App() {
     calculateTotal();
   }, [checkedState, qtyLang, qtyPages]);
 
-  // useState de Welcome
-  const [welcome, setWelcome] = useState(true);
-  console.log(welcome);
+  //Funció per guardar en localStorage
+  const saveData = () => {
+    localStorage.setItem("Serveis seleccionats", checkedState);
+    localStorage.setItem("Número de pàgines", qtyPages);
+    localStorage.setItem("Número d'idiomes", qtyLang);
+    localStorage.setItem("Preu total", total);
 
+    alert("Has guardat el teu pressupost correctament");
+  };
+
+  // useState de Welcome (pàgina d'inici)
+  const [welcome, setWelcome] = useState(true);
+
+  //Funció del botó start a la pàgina d'inici. Canvia l'estat de welcome i mostra la pàgina principal de l'app
   const start = () => {
     setWelcome(false);
   };
 
+  //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return welcome === true ? (
     <Welcome start={start} />
   ) : (
@@ -127,6 +138,9 @@ function App() {
       </div>
       <br></br>
       <div className='totalPrice'>Total {total} €</div>
+      <button className='buttonData' onClick={saveData}>
+        Guardar pressupost
+      </button>
     </div>
   );
 }

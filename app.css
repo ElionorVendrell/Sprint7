@@ -19,15 +19,32 @@
 h2{ color: orange;
 }
 
-#App{
-  display: flex;
+.inputForm{
+  background-color: blanchedalmond;
+  display: center;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  width: 26%;
+  height: 18px;
+  border: none;
+  border-radius: 1rem;
 }
 
-#textExras{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.buttonData{
+  margin-top: 10px;
+  background-color: orange;
+font-size: 16px;
+border: none;
+border-radius: 20px;
+height: 2.6rem;
+width: 9rem;
+cursor: pointer;
+color:rgba(255, 255, 255, 0.87);
+font-weight: bold;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
 }
