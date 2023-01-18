@@ -7,8 +7,12 @@ export const Button = styled.button`
   border-radius: 0.2rem;
   border: none;
   background-color: orange;
-  margin: 0.6rem;
+  margin: 0.3rem;
   cursor: pointer;
+  min-width: 24px;
+  min-height: 24px;
+  max-width: 24px;
+  max-height: 24px;
 `;
 export const Border = styled.div`
   margin-top: 2vh;

@@ -17,6 +17,12 @@
   
 
 h2{ color: orange;
+  font-size: 20px;
+}
+
+.totalPrice{
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .inputForm{
@@ -30,6 +36,10 @@ h2{ color: orange;
   border-radius: 1rem;
 }
 
+.link{
+  color:rgba(255, 255, 255, 0.87);
+  text-decoration: none;
+}
 
 .buttonData{
   margin-top: 10px;

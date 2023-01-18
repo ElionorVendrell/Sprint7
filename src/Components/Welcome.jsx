@@ -1,11 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Start } from "../../styled";
 
-export const Welcome = ({ start }) => {
+const Welcome = () => {
   return (
     <>
       <p>Fes click per començar</p>
-      <Start onClick={start}>Comença</Start>
+      <Start>
+        <Link className="link" to='/Budget'>Comença</Link>
+      </Start>
     </>
   );
 };
+
+export default Welcome;
