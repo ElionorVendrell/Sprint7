@@ -32,7 +32,8 @@ export const Border = styled.div`
   align-items: center;
   justify-content: center;
   height: 60px;
-  min-width: 122px;
+  min-width: 200px;
+  max-width: 200px;
 `;
 
 export const Start = styled.button`
@@ -68,47 +69,5 @@ export const ButtonInfo = styled.button`
     color: #2e518b;
     background-color: #ffffff;
     border: 1px solid #2e518b;
-  }
-`;
-export const Overlay = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ContenedorModal = styled.div`
-  max-width: 600px;
-  min-height: 30px;
-  background: white;
-  position: relative;
-  border-radius: 5px;
-  border: 1px solid black;
-  box-shadow: rgba(100, 100, 111, 0.5) 0px 7px 29px 0px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
-`;
-
-export const ButtonClose = styled.button`
-  display: flex;
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: orange;
-  cursor: pointer;
-
-  &:hover {
-    color: #2e518b;
   }
 `;

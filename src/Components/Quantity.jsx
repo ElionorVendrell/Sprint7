@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Button, ButtonInfo } from "../../styles/styled";
-import Info from "./Info";
+//import Info from "./Info";
+import Swal from "sweetalert2";
 
 export const Quantity = ({
   id,
@@ -28,10 +29,22 @@ export const Quantity = ({
   const openInfo = (id) => {
     console.log("prova openInfo", id);
     if (id === 0) {
-      setModalInfoPages(!modalInfoPages);
+      Swal.fire({
+        text: "En aquest camp heu d'omplir el nombre de pàgines que voleu pressupostar",
+        showConfirmButton: false,
+        customClass: {
+          popup: "customPopup",
+        },
+      });
     }
     if (id === 1) {
-      setModalInfoLang(!modalInfoLang);
+      Swal.fire({
+        text: "En aquest camp heu d'omplir el nombre d'idiomes que voleu pressupostar",
+        showConfirmButton: false,
+        customClass: {
+          popup: "customPopup",
+        },
+      });
     }
   };
 
@@ -51,11 +64,6 @@ export const Quantity = ({
         />
         <Button onClick={() => nextButton(id)}>+</Button>
         <ButtonInfo onClick={() => openInfo(id)}>i</ButtonInfo>
-        <div className='modalInfo'>
-          {(modalInfoPages && <Info />) || (modalInfoLang && <Info />)}
-        </div>
-
-        {/*  <Info></Info> */}
       </div>
       <br></br>
     </div>

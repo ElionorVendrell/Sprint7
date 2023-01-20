@@ -15,6 +15,18 @@
     -webkit-text-size-adjust: 100%;
   }
   
+  body{
+    justify-content: center;
+    display: flex;
+    margin-top: 40px ;
+  }
+  .customPopup{
+    border:  1px solid black;
+    height: 80px;
+    width: 800px;
+    align-items: center;
+    justify-content: center;
+  }
 
 h2{ color: orange;
   font-size: 20px;
@@ -43,7 +55,6 @@ h2{ color: orange;
 .link:hover{
   color: orange;
 }
-
 
 
 .buttonData{
