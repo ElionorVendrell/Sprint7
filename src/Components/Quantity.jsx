@@ -39,7 +39,7 @@ export const Quantity = ({
     }
     if (id === 1) {
       Swal.fire({
-        text: "En aquest camp heu d'omplir el nombre d'idiomes que voleu pressupostar",
+        text: "En aquest camp heu d'omplir el nombre d'idiomes en què voleu la vostra pàgina web",
         showConfirmButton: false,
         customClass: {
           popup: "customPopup",

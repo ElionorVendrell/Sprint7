@@ -6,7 +6,7 @@ export const Button = styled.button`
   color: rgba(255, 255, 255, 0.87);
   border-radius: 0.2rem;
   border: none;
-  background-color: orange;
+  background-color: #7393b3;
   margin: 0.3rem;
   cursor: pointer;
   min-width: 24px;
@@ -15,9 +15,9 @@ export const Button = styled.button`
   max-height: 24px;
 
   &:hover {
-    color: orange;
+    color: #7393b3;
     background: rgba(255, 255, 255, 0.87);
-    border: 1px solid orange;
+    border: 1px solid #7393b3;
   }
 `;
 export const Border = styled.div`
@@ -25,7 +25,8 @@ export const Border = styled.div`
   margin-bottom: 2vh;
   margin-right: 10%;
   padding: 2vh;
-  border: 2px solid #242424;
+  border: 1px solid #2e518b;
+  background-color: white;
   border-radius: 10px;
   width: 40%;
   display: flex;
@@ -39,7 +40,7 @@ export const Border = styled.div`
 export const Start = styled.button`
   font-size: 16px;
   font-weight: bold;
-  background-color: orange;
+  background-color: #7393b3;
   color: rgba(255, 255, 255, 0.87);
   border: none;
   border-radius: 0.2rem;
@@ -49,7 +50,7 @@ export const Start = styled.button`
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.87);
-    border: 1px solid orange;
+    border: 1px solid #7393b3;
   }
 `;
 

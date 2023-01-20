@@ -3,6 +3,7 @@ import services from "../../data/services.json";
 import { Quantity } from "./Quantity";
 import { Checkbox } from "./Checkbox";
 import { Border } from "../../styles/styled.js";
+import Swal from "sweetalert2";
 
 function Budget() {
   //1. useState del checkbox
@@ -79,16 +80,66 @@ function Budget() {
     calculateTotal();
   }, [checkedState, qtyLang, qtyPages]);
 
-  //Funció per guardar en localStorage
+  //Funció per obrir el modal on demana el nom del client (amb SWAL)
+  //sweetalert funciona per promeses, per això hem de dir que després de posar el nom faci algo
   const saveData = () => {
+    let nameClient;
+    Swal.fire({
+      text: "Escriu el teu nom per guardar el pressupost",
+      input: "text",
+      inputPlaceholder: "Escriu aquí el teu nom",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Guardar",
+      confirmButtonColor: "#7393B3",
+      allowEnterKey: true,
+      allowEscapeKey: true,
+      stopKeydownPropagation: true,
+      customClass: {
+        input: "inputCustom",
+        popup: "popupName",
+      },
+      preConfirm: (login) => {
+        return fetch(`//api.github.com/users/${login}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`És obligatori escriure un nom`);
+          });
+      },
+
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      nameClient = result.value.login;
+      console.log(`El nom del client és ${nameClient}`);
+
+      if (result.isConfirmed) {
+        Swal.fire({
+          toast: true,
+          icon: "success",
+          text: "El pressupost s'ha guardat correctament",
+          showConfirmButton: false,
+          timer: 1500,
+          position: "top",
+        });
+      }
+      saveLocalStorage(nameClient);
+    });
+  };
+
+  //Funció que guarda tot al localStorage, rep el nom del client per argument
+  const saveLocalStorage = (nameClient) => {
     localStorage.setItem("Serveis seleccionats", checkedState);
     localStorage.setItem("Número de pàgines", qtyPages);
     localStorage.setItem("Número d'idiomes", qtyLang);
     localStorage.setItem("Preu total", total);
-
-    alert("Has guardat el teu pressupost correctament");
+    localStorage.setItem("Nom Client", nameClient);
+    localStorage.setItem("Data pressupost", newDate());
   };
-
   // useState de Welcome (pàgina d'inici)
   /*   const [welcome, setWelcome] = useState(true); */
 
@@ -103,7 +154,7 @@ function Budget() {
     <Welcome start={start} />
   ) :  */ //Allò que imprimim per pantalla
     <div className='App'>
-      <h2>Què vols fer?</h2>
+      <h2>Indica què vols pressupostar</h2>
       <div className='services-list'>
         {services.map(({ text, price, id, extraServices }, index) => {
           let show = [
