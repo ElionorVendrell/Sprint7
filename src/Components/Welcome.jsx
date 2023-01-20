@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Start } from "../../styled";
+import { Start } from "../../styles/styled";
 
 const Welcome = () => {
   return (
@@ -12,5 +12,4 @@ const Welcome = () => {
     </>
   );
 };
-
 export default Welcome;

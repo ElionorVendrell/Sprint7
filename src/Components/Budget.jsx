@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import services from "../../data/services.json";
 import { Quantity } from "./Quantity";
 import { Checkbox } from "./Checkbox";
-import { Border } from "../../styled";
-//import { Welcome } from "./Welcome";
-//import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Border } from "../../styles/styled.js";
 
 function Budget() {
   //1. useState del checkbox
@@ -67,8 +65,11 @@ function Budget() {
 
   // Funció per calcular el preu total, suma dels checkbox + quantitats
   const calculateTotal = () => {
-    const totalExtra = qtyLang * qtyPages * 30;
-    const totalN = totalExtra + checkboxPrice;
+    //ternari per saber mostrar 0 al preu total quan no hi ha més pàgines seleccionades
+    const totalExtra =
+      qtyLang > 1 || qtyPages > 1 ? qtyPages * qtyLang * 30 : 0;
+    //ternari per indicar que si no està seleccionat el checkbox no sumi els extres
+    const totalN = checkboxPrice ? totalExtra + checkboxPrice : 0;
 
     setTotal(totalN);
   };
