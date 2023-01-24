@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { Pressupostos } from "./Pressupostos";
 import { BudgetList } from "./budgetList";
 
+// TODO: refrescar la pàgina i que segueixin sortint els pressus
+
 function Budget() {
   //1. useState del checkbox
   const [checkedState, setCheckedState] = useState(
@@ -32,6 +34,7 @@ function Budget() {
   const [checkboxPrice, setCheckboxPrice] = useState(0);
 
   const [budgetList, setBudgetList] = useState([]);
+  const [servicesNameState, setServicesNameState] = useState([]);
 
   // Funció per restar un número al botó dels inputs
   const backButton = (id) => {
@@ -63,6 +66,15 @@ function Budget() {
       index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
+
+    if (checkedState[0] === true) {
+      setQtyLang(1);
+      setQtyPages(1);
+    }
+    if (checkedState[0] === false) {
+      setQtyLang(0);
+      setQtyPages(0);
+    }
 
     // Funció per calcular el preu dels checkbox seleccionats
     const checkPrice = updatedCheckedState.reduce(
@@ -96,7 +108,6 @@ function Budget() {
   //Funció per obrir el modal on demana el nom del client (amb SWAL)
   //sweetalert funciona per promeses, per això hem de dir que després de posar el nom faci algo
   const saveData = () => {
-    let nameClient;
     Swal.fire({
       html:
         "Introdueix les teves dades" +
@@ -154,7 +165,7 @@ function Budget() {
     const userBudget = new BudgetList(
       nameClient,
       namePressu,
-      checkedState,
+      servicesNameState,
       qtyLang,
       qtyPages,
       total,
@@ -166,7 +177,19 @@ function Budget() {
   };
 
   localStorage.setItem("Budget List", JSON.stringify(budgetList));
-  console.log(budgetList);
+  console.log("budgetList", budgetList);
+
+  const servicesName = [];
+
+  useEffect(() => {
+    checkedState.map((item, index) => {
+      if (item === true) {
+        servicesName.push(services[index].text);
+      }
+    });
+    setServicesNameState(servicesName);
+    console.log("servicesName", servicesName);
+  }, [checkedState]);
 
   //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return (
@@ -215,7 +238,7 @@ function Budget() {
           ({
             name,
             nomPressu,
-            services,
+            servicesName,
             idiomes,
             pages,
             price,
@@ -225,7 +248,7 @@ function Budget() {
               key={nomPressu}
               name={name}
               nomPressu={nomPressu}
-              services={services}
+              servicesName={servicesName}
               idiomes={idiomes}
               pages={pages}
               price={price}
