@@ -4,12 +4,23 @@ import { Quantity } from "./Quantity";
 import { Checkbox } from "./Checkbox";
 import { Border } from "../../styles/styled.js";
 import Swal from "sweetalert2";
+import { Pressupostos } from "./Pressupostos";
+import { BudgetList } from "./budgetList";
 
 function Budget() {
   //1. useState del checkbox
   const [checkedState, setCheckedState] = useState(
     new Array(services.length).fill(false)
   );
+
+  /* let mostrarServeis = [];
+
+  checkedState((index) =>
+    index === true ? mostrarServeis.push(services[index].text) : []
+  );
+
+  console.log(mostrarServeis); */
+
   //2. useState del preu total
   const [total, setTotal] = useState(0);
 
@@ -19,6 +30,8 @@ function Budget() {
 
   //4. useState del Preu que es mostra quan el checkbox està actiu
   const [checkboxPrice, setCheckboxPrice] = useState(0);
+
+  const [budgetList, setBudgetList] = useState([]);
 
   // Funció per restar un número al botó dels inputs
   const backButton = (id) => {
@@ -85,9 +98,10 @@ function Budget() {
   const saveData = () => {
     let nameClient;
     Swal.fire({
-      text: "Escriu el teu nom per guardar el pressupost",
-      input: "text",
-      inputPlaceholder: "Escriu aquí el teu nom",
+      html:
+        "Introdueix les teves dades" +
+        '<input id="swal-input1" class="swal2-input" placeholder="Escriu el teu nom">' +
+        '<input id="swal-input2" class="swal2-input" placeholder="Nom del pressupost">',
       showCancelButton: true,
       cancelButtonText: "Cancelar",
       confirmButtonText: "Guardar",
@@ -99,24 +113,19 @@ function Budget() {
         input: "inputCustom",
         popup: "popupName",
       },
-      preConfirm: (login) => {
-        return fetch(`//api.github.com/users/${login}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(response.statusText);
-            }
-            return response.json();
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(`És obligatori escriure un nom`);
-          });
+      preConfirm: () => {
+        return [
+          document.getElementById("swal-input1").value,
+          document.getElementById("swal-input2").value,
+        ];
       },
 
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
-      nameClient = result.value.login;
-      console.log(`El nom del client és ${nameClient}`);
-
+      const nameClient = result.value[0];
+      const namePressu = result.value[1];
+      console.log("el nom del client és:", nameClient);
+      console.log("el nom del pressupost és:", namePressu);
       if (result.isConfirmed) {
         Swal.fire({
           toast: true,
@@ -127,32 +136,40 @@ function Budget() {
           position: "top",
         });
       }
-      saveLocalStorage(nameClient);
+      let currentDate = new Date();
+      saveLocalStorage(nameClient, currentDate, namePressu);
     });
   };
 
   //Funció que guarda tot al localStorage, rep el nom del client per argument
-  const saveLocalStorage = (nameClient) => {
+  const saveLocalStorage = (nameClient, currentDate, namePressu) => {
     localStorage.setItem("Serveis seleccionats", checkedState);
     localStorage.setItem("Número de pàgines", qtyPages);
     localStorage.setItem("Número d'idiomes", qtyLang);
     localStorage.setItem("Preu total", total);
     localStorage.setItem("Nom Client", nameClient);
-    localStorage.setItem("Data pressupost", newDate());
-  };
-  // useState de Welcome (pàgina d'inici)
-  /*   const [welcome, setWelcome] = useState(true); */
+    localStorage.setItem("Nom Pressupost", namePressu);
+    localStorage.setItem("Data pressupost", currentDate.toLocaleDateString());
 
-  //Funció del botó start a la pàgina d'inici. Canvia l'estat de welcome i mostra la pàgina principal de l'app
-  /*   const start = () => {
-    setWelcome(false);
-  }; */
+    const userBudget = new BudgetList(
+      nameClient,
+      namePressu,
+      checkedState,
+      qtyLang,
+      qtyPages,
+      total,
+      currentDate
+    );
+    const newBudgetList = [...budgetList];
+    newBudgetList.push(userBudget);
+    setBudgetList(newBudgetList);
+  };
+
+  localStorage.setItem("Budget List", JSON.stringify(budgetList));
+  console.log(budgetList);
 
   //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return (
-    /* welcome === true ? (
-    <Welcome start={start} />
-  ) :  */ //Allò que imprimim per pantalla
     <div className='App'>
       <h2>Indica què vols pressupostar</h2>
       <div className='services-list'>
@@ -193,6 +210,30 @@ function Budget() {
       <button className='buttonData' onClick={saveData}>
         Guardar pressupost
       </button>
+      <div>
+        {budgetList.map(
+          ({
+            name,
+            nomPressu,
+            services,
+            idiomes,
+            pages,
+            price,
+            currentDate,
+          }) => (
+            <Pressupostos
+              key={nomPressu}
+              name={name}
+              nomPressu={nomPressu}
+              services={services}
+              idiomes={idiomes}
+              pages={pages}
+              price={price}
+              currentDate={currentDate}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 }
