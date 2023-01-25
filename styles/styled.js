@@ -64,6 +64,25 @@ export const Start = styled.button`
   }
 `;
 
+export const Filter = styled.button`
+  font-size: 16px;
+  background-color: #7393b3;
+  color: rgba(255, 255, 255, 0.87);
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  height: 30px;
+  weight: 100%;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.87);
+    border: 1px solid #7393b3;
+    color: #7393b3;
+  }
+`;
+
 export const ButtonInfo = styled.button`
   border: none;
   background-color: #2e518b;

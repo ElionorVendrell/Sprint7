@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { Pressupostos } from "./Pressupostos";
 import { BudgetList } from "./budgetList";
 import { manageLocalStorage } from "./manageLocalStorage";
+import { ButtonsFilter } from "./buttonsFilter";
 
 // TODO: refrescar la pàgina i que segueixin sortint els pressus
 
@@ -42,6 +43,7 @@ function Budget() {
   const [checkboxPrice, setCheckboxPrice] = useState(0);
 
   const [budgetList, setBudgetList] = useState([]);
+
   const [servicesNameState, setServicesNameState] = useState([]);
 
   // Funció per restar un número al botó dels inputs
@@ -168,10 +170,7 @@ function Budget() {
     localStorage.setItem("Preu total", total);
     localStorage.setItem("Nom Client", nameClient);
     localStorage.setItem("Nom Pressupost", namePressu);
-    localStorage.setItem(
-      "Data pressupost",
-      currentDate.toLocaleDateString())
-    );
+    localStorage.setItem("Data pressupost", currentDate.toLocaleDateString());
 
     const userBudget = new BudgetList(
       nameClient,
@@ -202,6 +201,8 @@ function Budget() {
     setServicesNameState(servicesName);
     console.log("servicesName", servicesName);
   }, [checkedState]);
+
+
 
   //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return (
@@ -245,6 +246,11 @@ function Budget() {
       <button className='buttonData' onClick={saveData}>
         Guardar pressupost
       </button>
+      <ButtonsFilter
+        key={"buttons filter"}
+        
+        budget={budgetList}
+      />
       <div>
         {budgetList !== [] &&
           budgetList.map(

@@ -12,10 +12,9 @@ export const Pressupostos = ({
   return (
     <Card key={nomPressu}>
       <label>
-        <h2>Nom Pressupost:</h2>
-        <h3>{nomPressu}</h3>
+        <h2>Nom Pressupost: {nomPressu}</h2>
+
         <p>
-          {" "}
           <b>Nom Client:</b> {name}
         </p>
         <p>
