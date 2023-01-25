@@ -6,22 +6,30 @@ import { Border } from "../../styles/styled.js";
 import Swal from "sweetalert2";
 import { Pressupostos } from "./Pressupostos";
 import { BudgetList } from "./budgetList";
+import { manageLocalStorage } from "./manageLocalStorage";
 
 // TODO: refrescar la pàgina i que segueixin sortint els pressus
 
+/* 
+
+li passo primer la key, el estat i el set del estat. (1r s'han de fer els useStates)
+manageLocalStorage["Preu total", total, setTotal]
+
+*/
 function Budget() {
+  /*  useEffect(() => {
+    const restoreState = () => {
+      const restoredState = localStorage.getItem(budgetList);
+      if (restoreState) {
+        setBudgetList(JSON.parse(restoredState));
+      }
+    };
+  }, []); */
+
   //1. useState del checkbox
   const [checkedState, setCheckedState] = useState(
     new Array(services.length).fill(false)
   );
-
-  /* let mostrarServeis = [];
-
-  checkedState((index) =>
-    index === true ? mostrarServeis.push(services[index].text) : []
-  );
-
-  console.log(mostrarServeis); */
 
   //2. useState del preu total
   const [total, setTotal] = useState(0);
@@ -160,7 +168,10 @@ function Budget() {
     localStorage.setItem("Preu total", total);
     localStorage.setItem("Nom Client", nameClient);
     localStorage.setItem("Nom Pressupost", namePressu);
-    localStorage.setItem("Data pressupost", currentDate.toLocaleDateString());
+    localStorage.setItem(
+      "Data pressupost",
+      currentDate.toLocaleDateString())
+    );
 
     const userBudget = new BudgetList(
       nameClient,
@@ -176,7 +187,8 @@ function Budget() {
     setBudgetList(newBudgetList);
   };
 
-  localStorage.setItem("Budget List", JSON.stringify(budgetList));
+  manageLocalStorage("Budget List", budgetList, setBudgetList);
+  //localStorage.setItem("Budget List", JSON.stringify(budgetList));
   console.log("budgetList", budgetList);
 
   const servicesName = [];
@@ -234,28 +246,20 @@ function Budget() {
         Guardar pressupost
       </button>
       <div>
-        {budgetList.map(
-          ({
-            name,
-            nomPressu,
-            servicesName,
-            idiomes,
-            pages,
-            price,
-            currentDate,
-          }) => (
-            <Pressupostos
-              key={nomPressu}
-              name={name}
-              nomPressu={nomPressu}
-              servicesName={servicesName}
-              idiomes={idiomes}
-              pages={pages}
-              price={price}
-              currentDate={currentDate}
-            />
-          )
-        )}
+        {budgetList !== [] &&
+          budgetList.map(
+            ({ name, nomPressu, servicesName, idiomes, pages, price }) => (
+              <Pressupostos
+                key={nomPressu}
+                name={name}
+                nomPressu={nomPressu}
+                servicesName={servicesName}
+                idiomes={idiomes}
+                pages={pages}
+                price={price}
+              />
+            )
+          )}
       </div>
     </div>
   );

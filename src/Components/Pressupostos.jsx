@@ -1,4 +1,5 @@
 import React from "react";
+import { Card } from "../../styles/styled";
 
 export const Pressupostos = ({
   name,
@@ -7,18 +8,27 @@ export const Pressupostos = ({
   idiomes,
   pages,
   price,
-  currentDate,
 }) => {
   return (
-    <label>
-      <h3>Nom Pressupost: {nomPressu}</h3>
-      <p>Nom Client: {name}</p>
-      <p>Serveis contractats: {String(servicesName)}</p>
-      <p>
-        Número d'idiomes: {idiomes} Número de pàgines:{pages}
-      </p>
-      <p>Preu total: {price} €</p>
-      <p>Data del pressupost: {String(currentDate.toLocaleDateString())}</p>
-    </label>
+    <Card key={nomPressu}>
+      <label>
+        <h2>Nom Pressupost:</h2>
+        <h3>{nomPressu}</h3>
+        <p>
+          {" "}
+          <b>Nom Client:</b> {name}
+        </p>
+        <p>
+          <b>Serveis contractats:</b> {String(servicesName)}
+        </p>
+        <p>
+          <b> Número d'idiomes:</b> {idiomes} <b> Número de pàgines: </b>
+          {pages}
+        </p>
+        <p>
+          <b>Preu total:</b> {price} €
+        </p>
+      </label>
+    </Card>
   );
 };

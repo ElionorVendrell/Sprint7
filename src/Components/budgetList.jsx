@@ -6,7 +6,15 @@ export const BudgetList = class {
   pages;
   price;
   currentDate;
-  constructor(name, nomPressu, servicesName, idiomes, pages, price, currentDate) {
+  constructor(
+    name,
+    nomPressu,
+    servicesName,
+    idiomes,
+    pages,
+    price,
+    currentDate
+  ) {
     this.name = name;
     this.nomPressu = nomPressu;
     this.servicesName = servicesName;
