@@ -1,11 +1,21 @@
 import React from "react";
 import { Filter } from "../../styles/styled";
 
-export const ButtonsFilter = ({ budget }) => {
+export const ButtonsFilter = ({ budget, setBudget }) => {
+  const changeBudget = (canvi) => {
+    setBudget(canvi);
+  };
+
   const orderName = () => {
-    const budgetListAlphabetic = budget.map((e) => e.nomPressu).sort();
-    console.log(budgetListAlphabetic);
-    return budgetListAlphabetic;
+    const budgetListAlphabetic = budget
+      .map((e) => e)
+      .sort((a, b) => {
+        a.nomPressu - b.nomPressu;
+        if (a.nomPressu > b.nomPressu) return 1;
+        else return -1;
+      });
+    console.log("ordre alfabetic", budgetListAlphabetic);
+    changeBudget(budgetListAlphabetic);
   };
 
   const orderDate = () => {
@@ -17,6 +27,7 @@ export const ButtonsFilter = ({ budget }) => {
         else return -1;
       });
     console.log("orderByDate", orderByDate);
+    changeBudget(orderByDate);
   };
   const resetredOrder = () => {
     const reset = budget
@@ -27,6 +38,7 @@ export const ButtonsFilter = ({ budget }) => {
         else return -1;
       });
     console.log("reset", reset);
+    changeBudget(reset);
   };
 
   return (

@@ -66,7 +66,7 @@ export const Start = styled.button`
 
 export const Filter = styled.button`
   font-size: 16px;
-  background-color: #7393b3;
+  background-color: #2e518b;
   color: rgba(255, 255, 255, 0.87);
   border: none;
   border-radius: 0.2rem;
@@ -78,8 +78,8 @@ export const Filter = styled.button`
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.87);
-    border: 1px solid #7393b3;
-    color: #7393b3;
+    border: 1px solid #2e518b;
+    color: #2e518b;
   }
 `;
 

@@ -202,8 +202,6 @@ function Budget() {
     console.log("servicesName", servicesName);
   }, [checkedState]);
 
-
-
   //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return (
     <div className='App'>
@@ -248,8 +246,8 @@ function Budget() {
       </button>
       <ButtonsFilter
         key={"buttons filter"}
-        
         budget={budgetList}
+        setBudget={setBudgetList}
       />
       <div>
         {budgetList !== [] &&
