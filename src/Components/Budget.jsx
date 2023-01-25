@@ -202,6 +202,22 @@ function Budget() {
     console.log("servicesName", servicesName);
   }, [checkedState]);
 
+  const [search, setSearch] = useState("");
+
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+    setBudgetList(filteredBudget);
+  };
+
+  const filteredBudget = budgetList.filter((e) => {
+    if (e.name.toUpperCase().includes(search.toUpperCase())) {
+      return true;
+    }
+    return false;
+  });
+
+  console.log("filteredBudget", filteredBudget);
+
   //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return (
     <div className='App'>
@@ -244,6 +260,15 @@ function Budget() {
       <button className='buttonData' onClick={saveData}>
         Guardar pressupost
       </button>
+      <div>
+        <br></br>
+        <input
+          value={search}
+          onChange={handleChangeSearch}
+          type='text'
+          placeholder='Escriu el nom del client'
+        ></input>
+      </div>
       <ButtonsFilter
         key={"buttons filter"}
         budget={budgetList}
