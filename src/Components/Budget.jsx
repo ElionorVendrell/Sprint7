@@ -203,10 +203,20 @@ function Budget() {
   }, [checkedState]);
 
   const [search, setSearch] = useState("");
+  const [showFilteredBudget, setShowFilteredBudget] = useState([""]);
+
+  console.log("estat del filtered Budget", showFilteredBudget);
+
+  useEffect(() => {
+    setShowFilteredBudget(budgetList);
+  }, [budgetList]);
+  useEffect(() => {
+    setShowFilteredBudget(filteredBudget);
+  }, [search]);
+
 
   const handleChangeSearch = (event) => {
     setSearch(event.target.value);
-    setBudgetList(filteredBudget);
   };
 
   const filteredBudget = budgetList.filter((e) => {
@@ -215,8 +225,6 @@ function Budget() {
     }
     return false;
   });
-
-  console.log("filteredBudget", filteredBudget);
 
   //Mentre welcome sigui true mostrarà la pàgina de benvinguda. Quan sigui false (amb botó start) mostrarà la pàgina principal d'app
   return (
@@ -275,20 +283,19 @@ function Budget() {
         setBudget={setBudgetList}
       />
       <div>
-        {budgetList !== [] &&
-          budgetList.map(
-            ({ name, nomPressu, servicesName, idiomes, pages, price }) => (
-              <Pressupostos
-                key={nomPressu}
-                name={name}
-                nomPressu={nomPressu}
-                servicesName={servicesName}
-                idiomes={idiomes}
-                pages={pages}
-                price={price}
-              />
-            )
-          )}
+        {showFilteredBudget.map(
+          ({ name, nomPressu, servicesName, idiomes, pages, price }) => (
+            <Pressupostos
+              key={nomPressu}
+              name={name}
+              nomPressu={nomPressu}
+              servicesName={servicesName}
+              idiomes={idiomes}
+              pages={pages}
+              price={price}
+            />
+          )
+        )}
       </div>
     </div>
   );
